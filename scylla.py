@@ -7,7 +7,7 @@ uuids = sorted(uuid.UUID(bytes=bytes(x)) for x in itertools.product((0, 1), repe
 cluster = Cluster()
 conn = cluster.connect()
 conn.execute("CREATE KEYSPACE main WITH REPLICATION = {'class': 'SimpleStrategy', 'replication_factor': 1}")
-conn.execute("CREATE TABLE main.a (u uuid PRIMARY KEY)")
+conn.execute("CREATE TABLE main.a (mock int DEFAULT 1, u uuid, PRIMARY KEY (mock, u))")
 for u in uuids:
     conn.execute("INSERT INTO main.a (u) VALUES (%s)", (u,))
 for row, u in zip(conn.execute("SELECT u FROM main.a ORDER BY u"), uuids):

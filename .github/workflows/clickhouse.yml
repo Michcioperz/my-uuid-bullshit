@@ -1,0 +1,27 @@
+name: ClickHouse
+on:
+  push:
+    paths:
+      - .github/workflows/clickhouse.yml
+      - clickhouse.py
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      clickhouse:
+        image: clickhouse/clickhouse-server:21.11
+        options: >-
+          --ulimit nofile=262144:262144
+        ports:
+          - 9000:9000
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          pip3 install --user clickhouse-driver~=0.2.2
+      - name: wait in case the container is not healthy yet
+        run: |
+          sleep 30s
+      - run: |
+          python3 ./clickhouse.py

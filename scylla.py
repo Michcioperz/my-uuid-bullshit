@@ -6,6 +6,8 @@ import uuid
 uuids = sorted(uuid.UUID(bytes=bytes(x)) for x in itertools.product((0, 1), repeat=16))
 cluster = Cluster()
 conn = cluster.connect()
+conn.execute("CREATE KEYSPACE main")
+conn.execute("USE main")
 conn.execute("CREATE TABLE a (u uuid PRIMARY KEY)")
 for u in uuids:
     conn.execute("INSERT INTO a (u) VALUES (%s)", (u,))

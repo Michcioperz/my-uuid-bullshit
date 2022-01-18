@@ -24,6 +24,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          pip3 install --user sqlalchemy pg8000
+          pip3 install --user sqlalchemy~=1.4.29 pg8000~=1.23.0
       - run: |
           python3 ./postgresql.py

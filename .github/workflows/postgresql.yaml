@@ -24,8 +24,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          sudo apt-get update
-          sudo apt-get install python3 python3-pip
           pip3 install --user sqlalchemy pg8000
       - run: |
           python3 ./postgresql.py

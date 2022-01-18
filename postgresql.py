@@ -5,10 +5,15 @@ import sys
 from sqlalchemy import create_engine, text, Table, Column, MetaData, insert, select
 from sqlalchemy.dialects import postgresql
 import uuid
+
 uuids = sorted(uuid.UUID(bytes=bytes(x)) for x in itertools.product((0, 1), repeat=16))
-engine = create_engine("postgresql+pg8000://postgres:postgres@localhost/postgres", echo=True)
+engine = create_engine(
+    "postgresql+pg8000://postgres:postgres@localhost/postgres", echo=True
+)
 metadata = MetaData()
-table = Table("a", metadata, Column("u", postgresql.UUID(as_uuid=True), primary_key=True))
+table = Table(
+    "a", metadata, Column("u", postgresql.UUID(as_uuid=True), primary_key=True)
+)
 metadata.create_all(engine)
 with engine.connect() as conn:
     conn.execute(

@@ -2,7 +2,7 @@ name: ClickHouse
 on:
   push:
     paths:
-      - .github/workflows/clickhouse.yml
+      - .github/workflows/clickhouse.yaml
       - clickhouse.py
   workflow_dispatch:
 

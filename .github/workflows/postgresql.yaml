@@ -9,7 +9,7 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    container: nixos:nix
+    container: nixos/nix
     services:
       postgres:
         image: postgres

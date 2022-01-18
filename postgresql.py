@@ -13,7 +13,7 @@ metadata.create_all(engine)
 with engine.connect() as conn:
     conn.execute(
         insert(table),
-        [{"u": u} for u in uuids],
+        [{"u": str(u)} for u in uuids],
     )
     for row, u in zip(conn.execute(select(table).order_by(table.u)), uuids):
         print(row.u, u)

@@ -13,12 +13,9 @@ conn.execute(
 conn.execute("CREATE TABLE main.a (mock int, u uuid, PRIMARY KEY (mock, u))")
 for u in uuids:
     conn.execute("INSERT INTO main.a (mock, u) VALUES (1, %s)", (u,))
-for row, u in zip(
-    itertools.chain(
-        conn.execute("SELECT u FROM main.a WHERE mock = 1 ORDER BY u"),
-        itertools.cycle([()]),
-    ),
-    uuids,
-):
-    print(row[0], u)
-    assert row[0] == u
+rows = list(
+    row[0] for row in conn.execute("SELECT u FROM main.a WHERE mock = 1 ORDER BY u")
+)
+for u in rows:
+    print(u)
+assert rows == uuids

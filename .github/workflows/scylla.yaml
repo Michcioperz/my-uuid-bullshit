@@ -1,0 +1,22 @@
+name: Scylla
+on:
+  push:
+    paths:
+      - .github/workflows/scylla.yaml
+      - scylla.py
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      scylla:
+        image: scylladb/scylla
+        ports:
+          - 9042:9042
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          pip3 install --user scylla-driver~=3.25.0
+      - run: |
+          python3 ./scylla.py

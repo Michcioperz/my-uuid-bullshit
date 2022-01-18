@@ -24,6 +24,8 @@ jobs:
     #       - 5432:5432
     steps:
       - run: nix-channel --update
-      - run: nix-env -i coreutils git bash
+      - run: nix-env -i git
+      - run: nix-env -i bash
+      - run: nix-env -i coreutils
       - uses: actions/checkout@v2
       - run: ./postgresql.py

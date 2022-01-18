@@ -12,6 +12,11 @@ jobs:
     services:
       scylla:
         image: scylladb/scylla
+        options: >-
+          --health-cmd cqlsh
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
         ports:
           - 9042:9042
     steps:

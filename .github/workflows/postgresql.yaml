@@ -23,6 +23,7 @@ jobs:
         ports:
           - 5432:5432
     steps:
-      - uses: actions/checkout@v2
       - run: nix-channel --update
+      - run: nix-env -i coreutils git bash
+      - uses: actions/checkout@v2
       - run: ./postgresql.py

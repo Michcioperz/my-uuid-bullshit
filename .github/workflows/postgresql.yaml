@@ -24,7 +24,7 @@ jobs:
     #       - 5432:5432
     steps:
       - run: |
-          nix-channel --add https://nixos.org/channels/nixpkgs-21.11 nixpkgs
+          nix-channel --add https://nixos.org/channels/nixpkgs-unstable nixpkgs
           nix-channel --update nixpkgs
           nix-env -i -A nixpkgs.git -A nixpkgs.bash -A nixpkgs.coreutils
       - uses: actions/checkout@v2

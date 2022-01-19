@@ -1,8 +1,7 @@
 #!/usr/bin/nix-shell
 #!nix-shell -i python3 -p "pkgs.python3.withPackages(ps: [ps.sqlalchemy ps.pg8000])"
 import itertools
-import sys
-from sqlalchemy import create_engine, text, Table, Column, MetaData, insert, select
+from sqlalchemy import create_engine, Table, Column, MetaData, insert, select
 from sqlalchemy.dialects import postgresql
 import uuid
 
@@ -20,6 +19,7 @@ with engine.connect() as conn:
         insert(table),
         [{"u": u} for u in uuids],
     )
-    for row, u in zip(conn.execute(select(table.c.u).order_by(table.c.u)).all(), uuids):
-        print(row[0], u)
-        assert row[0] == u
+    rows = [row[0] for row in conn.execute(select(table.c.u).order_by(table.c.u)).all()]
+for u in rows:
+    print(u)
+assert rows == uuids
